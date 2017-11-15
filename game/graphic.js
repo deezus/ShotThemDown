@@ -22,11 +22,17 @@ function init()
 
     $container.append(renderer.domElement);
 
+    player1 = new Player("player1", 0xffff00, new THREE.Vector2(0, 0), 0);
     noGround = [];
     ground = new Ground(0xffffff, WIDTH, HEIGHT, 10);
-    
-    player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
+
+    //player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
     scene.add(player1.graphic);
+
+    ennemy1 = new Ennemy("Ennemy1", 0xffffff, new THREE.Vector2(0, 0), 0);
+    //ennemy2 = new Ennemy("Ennemy2", 0xffffff, new THREE.Vector3(0, 0, 1), 0);
+    scene.add(ennemy1.graphic);
+    //scene.add(ennemy2.graphic);
 
     light1 = new Light("sun", 0xffffff, "0,0,340");
     scene.add(light1);
@@ -39,7 +45,7 @@ function Ground(color, size_x, size_y, nb_tile)
     sizeOfTileX = size_x / nb_tile;
     minX = -(size_x/2);
     maxX = (size_x/2);
-    
+
     sizeOfTileY = size_y / nb_tile;
     minY = -(size_y/2);
     maxY = (size_y/2);
@@ -48,7 +54,7 @@ function Ground(color, size_x, size_y, nb_tile)
         for (y = minY; y <= maxY; y = y+sizeOfTileY){
 
             color = colors[Math.floor(Math.random()*colors.length)];
-       
+
             if (0x000000 != color)
             {
                 tmpGround = new THREE.Mesh(
@@ -59,14 +65,15 @@ function Ground(color, size_x, size_y, nb_tile)
                 scene.add(tmpGround);
             }
             else
-                noGround.push([x, y]);
+                //if ((x < sizeOfTileX && x >= 0 ) && (y <sizeOfTileY && y >= 0))
+                  noGround.push([x, y]);
         }
     }
 }
 
 function Light(name, color, position)
 {
-    pointLight = new THREE.PointLight(color, 50, 350);
+    pointLight = new THREE.PointLight(color, 50, 1000);
 
     pointLight.position.x = position.split(',')[0];
     pointLight.position.y = position.split(',')[1];

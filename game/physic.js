@@ -13,6 +13,24 @@ function update()
     if (keyboard.pressed("down"))
         player1.decelerate(moveDistance);
 
+    /*int t = 0;
+    while (t > 0 && t <= 30) {
+      ennemy1.accelerate(moveDistance);
+      t += delta;
+    }
+    while (t > 30 && t <= 60) {
+      ennemy1.decelerate(moveDistance);
+      t += delta;
+    }*/
+
+    if (ennemy1.graphic.position.x < player1.graphic.position.x) {
+      ennemy1.accelerate(moveDistance);
+    }
+    else {
+      ennemy1.decelerate(moveDistance);
+    }
+
+    ennemy1.move();
     player1.move();
     controls.update();
 }

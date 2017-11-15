@@ -2,7 +2,7 @@ var bulletTime1 = 0;
 
 var bullet_player1_material = new THREE.MeshLambertMaterial(
 {
-    color: 0x00ff00, 
+    color: 0x00ff00,
     transparent: false
 });
 
@@ -19,7 +19,7 @@ function shoot()
         bullet.angle = player1.direction;
         player1.bullets.push(bullet);
         bulletTime1 = clock.getElapsedTime();
-    } 
+    }
 
     // move bullets
     var moveDistance = 5;
@@ -36,12 +36,14 @@ function collisions()
 {
     bullet_collision();
     player_collision();
+    ennemy_collision();
     player_falling();
 }
 
 function bullet_collision()
 {
     //collision between bullet and walls
+    var x = player1.graphic.position.x | 0;
     for (var i = 0; i < player1.bullets.length; i++)
     {
         if (Math.abs(player1.bullets[i].position.x) >= WIDTH / 2 ||
@@ -50,6 +52,14 @@ function bullet_collision()
             scene.remove(player1.bullets[i]);
             player1.bullets.splice(i, 1);
             i--;
+        }
+        if ((Math.abs(player1.bullets[i].position.x) == Math.abs(ennemy1.graphic.position.x)) &&
+            (Math.abs(player1.bullets[i].position.y) == Math.abs(ennemy1.graphic.position.y)))
+        {
+          scene.remove(ennemy.display);
+            //scene.remove(player1.bullets[i]);
+            //player1.bullets.splice(i, 1);
+            //ennemy1.dead();
         }
     }
 
@@ -61,6 +71,8 @@ function player_collision()
     var x = player1.graphic.position.x + WIDTH / 2;
     var y = player1.graphic.position.y + HEIGHT / 2;
 
+    if (x < 0)
+        player1.graphic.position.x -= x;
     if ( x > WIDTH )
         player1.graphic.position.x -= x - WIDTH;
     if ( y < 0 )
@@ -68,6 +80,21 @@ function player_collision()
     if ( y > HEIGHT )
         player1.graphic.position.y -= y - HEIGHT;
 
+}
+
+function ennemy_collision()
+{
+  var x = ennemy1.graphic.position.x + WIDTH / 2;
+  var y = ennemy1.graphic.position.y + HEIGHT / 2;
+
+  if (x < 0)
+      ennemy1.graphic.position.x -= x;
+  if ( x > WIDTH )
+      ennemy1.graphic.position.x -= x - WIDTH;
+  if ( y < 0 )
+      ennemy1.graphic.position.y -= y;
+  if ( y > HEIGHT )
+      ennemy1.graphic.position.y -= y - HEIGHT;
 }
 
 function player_falling()
@@ -90,7 +117,7 @@ function player_falling()
 
         if ((x > tileX)
             && (x < mtileX)
-            && (y > tileY) 
+            && (y > tileY)
             && (y < mtileY))
         {
             player1.dead();
