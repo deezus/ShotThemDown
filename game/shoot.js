@@ -37,14 +37,12 @@ function collisions()
     bullet_collision();
     player_collision();
     ennemy_collision();
+    bullet_ennemy();
     //player_falling();
 }
 
 function bullet_ennemy()
 {
-  var nb_tile = 10;
-  var sizeOfTileX = WIDTH / nb_tile;
-  var sizeOfTileY = HEIGHT / nb_tile;
   var x = player1.graphic.position.x | 0;
   var y = player1.graphic.position.y | 0;
   var length = player1.bullets.length;
@@ -52,11 +50,6 @@ function bullet_ennemy()
 
   for (var i = 0; i < length; i++) {
       element = player1.bullets[i];
-
-      /*var tileX = (element[0]) | 0;
-      var tileY = (element[1]) | 0;
-      var mtileX = (element[0] + sizeOfTileX) | 0;
-      var mtileY = (element[1] + sizeOfTileY) | 0;*/
 
       if (element.position.x == x && element.position.y == y) {
         scene.remove(ennemy1.display);

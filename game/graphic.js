@@ -22,11 +22,10 @@ function init()
 
     $container.append(renderer.domElement);
 
-    player1 = new Player("player1", 0xffff00, new THREE.Vector2(0, 0), 0);
     noGround = [];
     ground = new Ground(0xffffff, WIDTH, HEIGHT, 10);
 
-    //player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
+    player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
     scene.add(player1.graphic);
 
     ennemy1 = new Ennemy("Ennemy1", 0xffffff, new THREE.Vector2(0, 0), 0);
