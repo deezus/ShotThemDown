@@ -37,13 +37,36 @@ function collisions()
     bullet_collision();
     player_collision();
     ennemy_collision();
-    player_falling();
+    //player_falling();
+}
+
+function bullet_ennemy()
+{
+  var nb_tile = 10;
+  var sizeOfTileX = WIDTH / nb_tile;
+  var sizeOfTileY = HEIGHT / nb_tile;
+  var x = player1.graphic.position.x | 0;
+  var y = player1.graphic.position.y | 0;
+  var length = player1.bullets.length;
+  var element = null;
+
+  for (var i = 0; i < length; i++) {
+      element = player1.bullets[i];
+
+      /*var tileX = (element[0]) | 0;
+      var tileY = (element[1]) | 0;
+      var mtileX = (element[0] + sizeOfTileX) | 0;
+      var mtileY = (element[1] + sizeOfTileY) | 0;*/
+
+      if (element.position.x == x && element.position.y == y) {
+        scene.remove(ennemy1.display);
+      }
+  }
 }
 
 function bullet_collision()
 {
     //collision between bullet and walls
-    var x = player1.graphic.position.x | 0;
     for (var i = 0; i < player1.bullets.length; i++)
     {
         if (Math.abs(player1.bullets[i].position.x) >= WIDTH / 2 ||
@@ -53,16 +76,7 @@ function bullet_collision()
             player1.bullets.splice(i, 1);
             i--;
         }
-        if ((Math.abs(player1.bullets[i].position.x) == Math.abs(ennemy1.graphic.position.x)) &&
-            (Math.abs(player1.bullets[i].position.y) == Math.abs(ennemy1.graphic.position.y)))
-        {
-          scene.remove(ennemy.display);
-            //scene.remove(player1.bullets[i]);
-            //player1.bullets.splice(i, 1);
-            //ennemy1.dead();
-        }
     }
-
 }
 
 function player_collision()
